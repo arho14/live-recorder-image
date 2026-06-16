@@ -10,6 +10,8 @@ ENV TZ=Asia/Shanghai \
 
 WORKDIR /app
 
+COPY patches/keep_running_empty_url_config.py /tmp/keep_running_empty_url_config.py
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates curl ffmpeg gnupg gosu passwd tzdata && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
@@ -19,6 +21,8 @@ RUN apt-get update && \
     curl -fsSL "https://codeload.github.com/ihmily/DouyinLiveRecorder/tar.gz/refs/heads/${UPSTREAM_REF}" | \
       tar -xz --strip-components=1 -C /app && \
     pip install --no-cache-dir -r requirements.txt && \
+    python /tmp/keep_running_empty_url_config.py && \
+    rm -f /tmp/keep_running_empty_url_config.py && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
