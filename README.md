@@ -31,6 +31,7 @@ Recommended environment variables:
 ```text
 PUID=99
 PGID=100
+UMASK=000
 TZ=Asia/Shanghai
 ```
 
@@ -45,3 +46,7 @@ Recommended volume mappings:
 
 The container starts as root only long enough to fix ownership on the mounted
 directories, then runs `python main.py` as `PUID:PGID`.
+
+`UMASK=000` makes new recordings writable from SMB clients. If you prefer a
+slightly tighter setup, use `UMASK=002` and make sure your SMB user has write
+access through the `users` group.

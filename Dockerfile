@@ -5,6 +5,7 @@ ARG UPSTREAM_REF=main
 ENV TZ=Asia/Shanghai \
     PUID=99 \
     PGID=100 \
+    UMASK=000 \
     TERM=xterm-256color
 
 WORKDIR /app
