@@ -17,6 +17,9 @@ jobs:
           username: chihotam
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Checkout image builder
+        uses: actions/checkout@v4
+
       - name: Set image date tag
         run: echo "IMAGE_DATE=$(date -u +'%Y%m%d')" >> "$GITHUB_ENV"
 
@@ -26,7 +29,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v7
         with:
-          context: https://github.com/ihmily/DouyinLiveRecorder.git#main
+          context: .
           push: true
           platforms: linux/amd64
           tags: |
